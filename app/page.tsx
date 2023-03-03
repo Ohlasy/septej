@@ -63,7 +63,7 @@ const UploadForm = ({ onSubmit }: UploadFormProps) => {
           onChange={(e) => setSelectedFile(e.target.files!.item(0))}
           required
         />
-        <input type="submit" />
+        <input type="submit" value="Přepsat" />
       </form>
     </div>
   );
