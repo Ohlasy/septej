@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 
 type Model =
   | { state: "picking_file" }
-  | { state: "uploading" }
+  | { state: "transcribing" }
   | { state: "transcribed"; text: string }
   | { state: "failed"; error: string };
 
@@ -12,7 +12,7 @@ export default function Home() {
   const [model, setModel] = useState<Model>({ state: "picking_file" });
   const handleSubmit = async (file: File) => {
     try {
-      setModel({ state: "uploading" });
+      setModel({ state: "transcribing" });
       const payload = new FormData();
       payload.append("file", file);
       const response = await fetch("/transcribe", {
@@ -31,7 +31,7 @@ export default function Home() {
   switch (model.state) {
     case "picking_file":
       return <UploadForm onSubmit={handleSubmit} />;
-    case "uploading":
+    case "transcribing":
       return "Přepisuju. (Přepsat 10 minut záznamu trvá zhruba minutu.)";
     case "transcribed":
       return (
