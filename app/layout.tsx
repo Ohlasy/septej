@@ -15,6 +15,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="cs">
+      <head>
+        <script
+          defer
+          data-domain="septej.ohlasy.info"
+          src="https://plausible.io/js/script.js"
+        ></script>
+      </head>
       <body>{children}</body>
     </html>
   );
