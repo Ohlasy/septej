@@ -34,12 +34,7 @@ export default function Home() {
     case "transcribing":
       return <Spinner />;
     case "transcribed":
-      return (
-        <div>
-          <p>Hotovo!</p>
-          <code>{model.text}</code>
-        </div>
-      );
+      return <OutputText text={model.text} />;
     case "failed":
       return "😞";
   }
@@ -124,5 +119,15 @@ const Spinner = () => (
         </p>
       </div>
     </div>
+  </div>
+);
+
+type OutputTextProps = {
+  text: string;
+};
+
+const OutputText = ({ text }: OutputTextProps) => (
+  <div className="max-w-prose m-auto bg-slate-200 min-h-screen">
+    <div className="font-mono p-5">{text}</div>
   </div>
 );
