@@ -1,91 +1,70 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from './page.module.css'
+"use client";
 
-const inter = Inter({ subsets: ['latin'] })
+import { FormEvent, useState } from "react";
+
+type Model =
+  | { state: "picking_file" }
+  | { state: "uploading" }
+  | { state: "transcribed"; text: string }
+  | { state: "failed"; error: string };
 
 export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
+  const [model, setModel] = useState<Model>({ state: "picking_file" });
+  const handleSubmit = async (file: File) => {
+    try {
+      setModel({ state: "uploading" });
+      const payload = new FormData();
+      payload.append("file", file);
+      const response = await fetch("/transcribe", {
+        method: "POST",
+        body: payload,
+      });
+      if (response.ok) {
+        setModel({ state: "transcribed", text: await response.text() });
+      } else {
+        setModel({ state: "failed", error: await response.text() });
+      }
+    } catch (e) {
+      setModel({ state: "failed", error: `${e}` });
+    }
+  };
+  switch (model.state) {
+    case "picking_file":
+      return <UploadForm onSubmit={handleSubmit} />;
+    case "uploading":
+      return "Přepisuju. (Přepsat 10 minut záznamu trvá zhruba minutu.)";
+    case "transcribed":
+      return (
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+          <p>Hotovo!</p>
+          <code>{model.text}</code>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-        <div className={styles.thirteen}>
-          <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
-        </div>
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://beta.nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={inter.className}>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p className={inter.className}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+      );
+    case "failed":
+      return "😞";
+  }
 }
+
+type UploadFormProps = {
+  onSubmit: (file: File) => void;
+};
+
+const UploadForm = ({ onSubmit }: UploadFormProps) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit(selectedFile!);
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="file"
+          onChange={(e) => setSelectedFile(e.target.files!.item(0))}
+          required
+        />
+        <input type="submit" />
+      </form>
+    </div>
+  );
+};
