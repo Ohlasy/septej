@@ -1,3 +1,5 @@
+import "./global.css";
+
 export const metadata = {
   title: "Šeptej 🤫",
   description: "Přepis záznamu do textu pomocí OpenAI Whisper",
