@@ -1,0 +1,1 @@
+Ukázková aplikace pro přepis nahrávek na text pomocí [OpenAI Whisper](https://openai.com/blog/introducing-chatgpt-and-whisper-apis). Titulní foto [Michael Coghlan](https://www.flickr.com/photos/mikecogh/). Běží na [Vercelu](https://vercel.com/).
