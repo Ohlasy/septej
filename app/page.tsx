@@ -89,6 +89,28 @@ const UploadForm = ({ onSubmit }: UploadFormProps) => {
           </label>
         </div>
       </form>
+      <p className="text-sm text-gray-500 max-w-prose text-center">
+        <span className="whitespace-nowrap">
+          Šeptej – přepis nahrávek pomocí{" "}
+          <a
+            href="https://openai.com/blog/introducing-chatgpt-and-whisper-apis"
+            className="underline"
+          >
+            OpenAI Whisper
+          </a>
+          .
+        </span>{" "}
+        <span className="whitespace-nowrap">
+          Zdrojový kód na{" "}
+          <a href="https://github.com/Ohlasy/septej" className="underline">
+            GitHubu
+          </a>
+          .
+        </span>{" "}
+        <span className="whitespace-nowrap">
+          Běžíme na kredity zdarma, až dojdou, nepoběžíme :)
+        </span>
+      </p>
     </div>
   );
 };
