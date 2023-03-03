@@ -22,7 +22,7 @@ export default function Home() {
       if (response.ok) {
         setModel({ state: "transcribed", text: await response.text() });
       } else {
-        setModel({ state: "failed", error: await response.text() });
+        setModel({ state: "failed", error: response.statusText });
       }
     } catch (e) {
       setModel({ state: "failed", error: `${e}` });
@@ -36,7 +36,7 @@ export default function Home() {
     case "transcribed":
       return <OutputText text={model.text} />;
     case "failed":
-      return "😞";
+      return <ErrorScreen error={model.error} />;
   }
 }
 
@@ -129,5 +129,18 @@ type OutputTextProps = {
 const OutputText = ({ text }: OutputTextProps) => (
   <div className="max-w-prose m-auto bg-slate-200 min-h-screen">
     <div className="font-mono p-5">{text}</div>
+  </div>
+);
+
+type ErrorScreenProps = {
+  error: string;
+};
+
+const ErrorScreen = ({ error }: ErrorScreenProps) => (
+  <div className="grid h-screen place-items-center m-5">
+    <div className="mt-4 text-center">
+      <p>Chyba 🫤</p>
+      <p className="text-gray-500 text-sm">{error}</p>
+    </div>
   </div>
 );
