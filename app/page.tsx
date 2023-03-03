@@ -57,7 +57,7 @@ const UploadForm = ({ onSubmit }: UploadFormProps) => {
             htmlFor="dropzone-file"
             className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
           >
-            <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <div className="flex flex-col items-center justify-center pt-5 pb-6 max-w-[50ex]">
               <CloudIcon />
               <p className="mb-2 text-gray-500 dark:text-gray-400">
                 <span className="font-semibold">
@@ -65,9 +65,8 @@ const UploadForm = ({ onSubmit }: UploadFormProps) => {
                 </span>
               </p>
               <p className="text-sm text-gray-500 dark:text-gray-400 p-5 text-center">
-                Formáty MP3, MP4, MPEG, MPGA, M4A, WAV nebo WEBM.
-                <br />
-                Maximálně 4,5 MB (
+                Formáty MP3, MP4, MPEG, MPGA, M4A, WAV nebo WEBM. Maximálně
+                4,5 MB (
                 <a
                   href="https://vercel.com/guides/how-to-bypass-vercel-body-size-limit-serverless-functions"
                   className="underline"
@@ -111,27 +110,19 @@ const CloudIcon = () => (
 );
 
 const Footer = () => (
-  <p className="text-sm text-gray-500 max-w-prose text-center">
-    <span className="whitespace-nowrap">
-      Šeptej – přepis nahrávek pomocí{" "}
-      <a
-        href="https://openai.com/blog/introducing-chatgpt-and-whisper-apis"
-        className="underline"
-      >
-        OpenAI Whisper
-      </a>
-      .
-    </span>{" "}
-    <span className="whitespace-nowrap">
-      Zdrojový kód na{" "}
-      <a href="https://github.com/Ohlasy/septej" className="underline">
-        GitHubu
-      </a>
-      .
-    </span>{" "}
-    <span className="whitespace-nowrap">
-      Běžíme na kredity zdarma, až dojdou, nepoběžíme :)
-    </span>
+  <p className="text-sm text-gray-500 max-w-[50ex] text-center">
+    Šeptej – přepis nahrávek pomocí{" "}
+    <a
+      href="https://openai.com/blog/introducing-chatgpt-and-whisper-apis"
+      className="underline"
+    >
+      OpenAI Whisper
+    </a>
+    . Zdrojový kód na{" "}
+    <a href="https://github.com/Ohlasy/septej" className="underline">
+      GitHubu
+    </a>
+    . Běžíme na kredity zdarma, až dojdou, nepoběžíme :)
   </p>
 );
 
