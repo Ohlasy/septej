@@ -64,9 +64,17 @@ const UploadForm = ({ onSubmit }: UploadFormProps) => {
                   Kliknutím nahrajete soubor
                 </span>
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 p-5">
-                Formáty MP3, MP4, MPEG, MPGA, M4A, WAV nebo WEBM, maximálně
-                25 MB
+              <p className="text-sm text-gray-500 dark:text-gray-400 p-5 text-center">
+                Formáty MP3, MP4, MPEG, MPGA, M4A, WAV nebo WEBM.
+                <br />
+                Maximálně 4,5 MB (
+                <a
+                  href="https://vercel.com/guides/how-to-bypass-vercel-body-size-limit-serverless-functions"
+                  className="underline"
+                >
+                  omezení Vercelu
+                </a>
+                )
               </p>
             </div>
             <input
