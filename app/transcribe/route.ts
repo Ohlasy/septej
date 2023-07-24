@@ -14,11 +14,15 @@ export async function POST(request: Request) {
   payload.append("file", fileData);
 
   // https://platform.openai.com/docs/api-reference/audio/create
-  return await fetch("https://api.openai.com/v1/audio/transcriptions", {
-    method: "POST",
-    body: payload,
-    headers: {
-      Authorization: `Bearer ${apiToken}`,
-    },
-  });
+  const response = await fetch(
+    "https://api.openai.com/v1/audio/transcriptions",
+    {
+      method: "POST",
+      body: payload,
+      headers: {
+        Authorization: `Bearer ${apiToken}`,
+      },
+    }
+  );
+  return new Response(await response.text(), { status: response.status });
 }
