@@ -122,7 +122,11 @@ const Footer = () => (
     <a href="https://github.com/Ohlasy/septej" className="underline">
       GitHubu
     </a>
-    . Provoz sponzorují <a href="https://ohlasy.info">Ohlasy</a>.
+    . Provoz sponzorují{" "}
+    <a href="https://ohlasy.info" className="underline">
+      Ohlasy
+    </a>
+    .
   </p>
 );
 
