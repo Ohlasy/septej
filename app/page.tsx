@@ -126,7 +126,14 @@ const Footer = () => (
     <a href="https://ohlasy.info" className="underline">
       Ohlasy
     </a>
-    .
+    . (A{" "}
+    <a
+      href="https://novinari.social/t/co-pouzivate-na-prepis-textu/19"
+      className="underline"
+    >
+      co používáte na přepis textu vy
+    </a>
+    ?)
   </p>
 );
 
