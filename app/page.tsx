@@ -15,7 +15,7 @@ export default function Home() {
       setModel({ state: "transcribing" });
       const payload = new FormData();
       payload.append("file", file);
-      const response = await fetch("http://api-proxy.ohlasy.info:8000", {
+      const response = await fetch("https://api-proxy.ohlasy.info", {
         method: "POST",
         body: payload,
       });
