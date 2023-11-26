@@ -36,7 +36,7 @@ app.post("/", upload.single("file"), async (request, response) => {
 
   const payload = new FormData();
   payload.append("model", "whisper-1");
-  payload.append("response_format", "json");
+  payload.append("response_format", "text");
   payload.append("language", "cs");
   payload.append("file", new Blob([file.buffer]), file.originalname);
 
@@ -59,6 +59,10 @@ app.post("/", upload.single("file"), async (request, response) => {
   );
 
   response.contentType(originResponse.headers.get("content-type"));
+  response.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://septej.ohlasy.info"
+  );
   response.status(originResponse.status);
   response.send(await originResponse.text());
 });
